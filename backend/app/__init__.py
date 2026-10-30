@@ -1,1 +1,1 @@
-"""CareVision AI FastAPI application package."""
+"""XRaySense AI FastAPI application package."""

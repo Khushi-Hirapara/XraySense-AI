@@ -13,12 +13,12 @@ from app.core.email_delivery import FAILED, SKIPPED, SENT
 
 logger = logging.getLogger(__name__)
 
-INVITATION_SUBJECT = "You're invited to CareVision AI"
-VERIFY_EMAIL_SUBJECT = "Verify your CareVision AI email"
-RESET_PASSWORD_SUBJECT = "Reset your CareVision AI password"
+INVITATION_SUBJECT = "You're invited to XRaySense AI"
+VERIFY_EMAIL_SUBJECT = "Verify your XRaySense AI email"
+RESET_PASSWORD_SUBJECT = "Reset your XRaySense AI password"
 
 MEDICAL_DISCLAIMER = (
-    "CareVision AI provides AI-assisted screening results for clinical review only. "
+    "XRaySense AI provides AI-assisted screening results for clinical review only. "
     "They are not a diagnosis. Always follow guidance from your healthcare provider."
 )
 

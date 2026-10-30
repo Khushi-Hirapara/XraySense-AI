@@ -1,4 +1,4 @@
-# CareVision AI — Frontend
+# XRaySense AI — Frontend
 
 Next.js 16 app for chest X-ray analysis. Connects to the local FastAPI backend at **http://localhost:8000**.
 

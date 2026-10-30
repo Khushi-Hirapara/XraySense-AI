@@ -226,7 +226,7 @@ export function PatientDashboardView() {
 
       <section className="shrink-0 rounded-2xl border border-slate-200/80 bg-white/80 px-5 py-4 shadow-sm backdrop-blur-sm sm:px-6">
         <p className="text-center text-xs leading-relaxed text-slate-500 sm:text-sm">
-          <span className="font-semibold text-slate-700">CareVision AI</span> results
+          <span className="font-semibold text-slate-700">XRaySense AI</span> results
           support clinical review and are not a final diagnosis. Contact your doctor
           with any health concerns.
         </p>

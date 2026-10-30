@@ -207,7 +207,7 @@ export function HealthAssistantChat({
           </span>
           <div className="min-w-0">
             <h2 className="truncate text-base font-semibold tracking-tight text-slate-900 sm:text-lg dark:text-white">
-              CareVision AI Health Assistant
+              XRaySense AI Health Assistant
             </h2>
             <p className="mt-0.5 text-sm text-slate-500">
               Ask questions about your health report.

@@ -1233,7 +1233,7 @@ def generate_scan_report_pdf(
         leftMargin=0.75 * inch,
         topMargin=0.65 * inch,
         bottomMargin=1.0 * inch,
-        title=f"CareVision AI Report - {_report_number(scan.id)}",
+        title=f"XRaySense AI Report - {_report_number(scan.id)}",
     )
 
     styles = _styles()

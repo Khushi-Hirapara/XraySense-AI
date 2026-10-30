@@ -14,7 +14,7 @@ def test_invitation_accept_url_uses_frontend_url_and_path() -> None:
 
 
 def test_invitation_subject() -> None:
-    assert INVITATION_SUBJECT == "You're invited to CareVision AI"
+    assert INVITATION_SUBJECT == "You're invited to XRaySense AI"
 
 
 def test_send_without_smtp_returns_skipped() -> None:
@@ -36,7 +36,7 @@ def test_medical_disclaimer_present_in_plain_body() -> None:
     body = _build_plain_body(
         patient_name="Jane",
         doctor_name="Dr. Smith",
-        app_name="CareVision AI",
+        app_name="XRaySense AI",
         accept_url="http://localhost:3000/accept-invitation/tok",
         expire_days=7,
     )

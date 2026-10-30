@@ -23,7 +23,7 @@ export function MedicalDisclaimer({ className, compact }: MedicalDisclaimerProps
         aria-hidden
       />
       <p className="leading-relaxed">
-        CareVision AI provides AI-assisted preliminary screening only-not a final
+        XRaySense AI provides AI-assisted preliminary screening only-not a final
         medical diagnosis. Always follow guidance from qualified healthcare
         professionals.
       </p>

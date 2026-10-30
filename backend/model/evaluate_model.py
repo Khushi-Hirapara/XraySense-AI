@@ -187,7 +187,7 @@ def _classification_report(y_true: np.ndarray, y_pred: np.ndarray) -> str:
 def main() -> None:
     args = parse_args()
 
-    print("\n=== CareVision AI Model Evaluation ===")
+    print("\n=== XRaySense AI Model Evaluation ===")
     print(f"Model path:   {args.model.resolve()}")
     print(f"Dataset path: {args.dataset_dir.resolve()}")
     print(f"Class mapping: {CLASS_INDICES}")

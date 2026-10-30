@@ -1,4 +1,4 @@
-"""Canonical prediction labels and helpers for CareVision API services."""
+"""Canonical prediction labels and helpers for XRaySense API services."""
 
 from __future__ import annotations
 

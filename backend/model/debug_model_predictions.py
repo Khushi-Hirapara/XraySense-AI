@@ -81,7 +81,7 @@ def _save_histogram(win_probs: np.ndarray, output_path: Path) -> None:
 
 def main() -> None:
     args = parse_args()
-    print("\n=== CareVision AI Debug Predictions ===")
+    print("\n=== XRaySense AI Debug Predictions ===")
     print(f"Dataset: {args.dataset_dir.resolve()}")
     print(f"Model:   {args.model.resolve()}")
     print(f"Classes: {dict(CLASS_INDICES)}")

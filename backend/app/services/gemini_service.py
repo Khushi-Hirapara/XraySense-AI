@@ -1,4 +1,4 @@
-"""Google AI Studio Gemini client for the CareVision Health Assistant.
+"""Google AI Studio Gemini client for the XRaySense Health Assistant.
 
 This module uses the official ``google-genai`` SDK with the Gemini Developer
 API. It does not use Vertex AI, and the API key remains on the backend.

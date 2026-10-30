@@ -11,7 +11,7 @@ const points = [
     icon: ScanSearch,
     tone: "sky" as const,
     title: "Focused chest X-ray screening",
-    text: "CareVision currently evaluates frontal chest radiographs for Normal versus Pneumonia patterns.",
+    text: "XRaySense currently evaluates frontal chest radiographs for Normal versus Pneumonia patterns.",
   },
   {
     icon: BrainCircuit,
@@ -42,7 +42,7 @@ export function HomeOverview() {
             About the platform
           </p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
-            What is CareVision AI screening?
+            What is XRaySense AI screening?
           </h2>
           <p className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-400">
             A modular medical-imaging workspace that turns a chest X-ray into an

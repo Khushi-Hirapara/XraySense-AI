@@ -374,7 +374,7 @@ export function ProfileView({ user: initialUser }: { user: AuthUser }) {
                   Account details
                 </h2>
                 <p className="text-sm text-slate-500">
-                  Information tied to your CareVision AI login
+                  Information tied to your XRaySense AI login
                 </p>
               </div>
             </div>

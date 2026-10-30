@@ -18,7 +18,7 @@ export function EmptyState() {
         <span className="absolute -right-1 -top-1 h-3.5 w-3.5 rounded-full bg-emerald-400 ring-2 ring-white health-pulse-ring" />
       </div>
       <h3 className="text-lg font-semibold tracking-tight text-slate-900 dark:text-white">
-        Welcome to CareVision AI Health Assistant
+        Welcome to XRaySense AI Health Assistant
       </h3>
       <p className="mt-2 max-w-md text-sm leading-relaxed text-slate-500 dark:text-slate-400">
         Ask about your saved screening report. I explain results, medical terms,

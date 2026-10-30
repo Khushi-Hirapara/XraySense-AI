@@ -110,7 +110,7 @@ def delete_conversation(
 
 def export_conversation_text(conversation: ChatConversation) -> str:
     lines = [
-        "CareVision AI Health Assistant — Chat Export",
+        "XRaySense AI Health Assistant — Chat Export",
         f"Conversation ID: {conversation.id}",
         f"Scan ID: {conversation.scan_id or 'N/A'}",
         f"Created: {conversation.created_at.isoformat()}",

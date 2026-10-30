@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     )
 
     # Application
-    app_name: str = Field(default="CareVision AI", alias="APP_NAME")
+    app_name: str = Field(default="XRaySense AI", alias="APP_NAME")
     app_env: str = Field(default="development", alias="APP_ENV")
     debug: bool = Field(default=True, alias="DEBUG")
     log_level: str = Field(default="INFO", alias="LOG_LEVEL")

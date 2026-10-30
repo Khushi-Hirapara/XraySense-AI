@@ -53,7 +53,7 @@ function ResetPasswordForm() {
   return (
     <AuthFormCard
       title="Reset password"
-      description="Choose a new password for your CareVision account."
+      description="Choose a new password for your XRaySense account."
       footer={
         <AuthFooterLink
           prompt="Need a new link?"

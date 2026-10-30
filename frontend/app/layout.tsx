@@ -15,8 +15,8 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "CareVision AI",
-    template: "%s | CareVision AI",
+    default: "XRaySense AI",
+    template: "%s | XRaySense AI",
   },
   description:
     "AI-assisted chest X-ray analysis for pneumonia detection with explainable insights.",

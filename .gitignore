@@ -1,5 +1,5 @@
 # =============================================================================
-# CareVision AI — Root .gitignore
+# XRaySense AI — Root .gitignore
 # =============================================================================
 
 # -----------------------------------------------------------------------------
@@ -242,6 +242,13 @@ temp/
 backend/temp/
 reports/
 backend/reports/
+# Dataset EDA sample thumbnails (derived from the ignored dataset; rebuilt by build_dataset_eda.py)
+backend/model/evaluation/eda_samples/
+
+# Re-include frontend source that the generic `lib/` (Python packaging) and
+# `reports/` (generated PDFs) rules above match by name.
+!frontend/lib/
+!frontend/app/**/reports/
 
 
 # -----------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-"""Health knowledge base articles for the CareVision AI Health Assistant."""
+"""Health knowledge base articles for the XRaySense AI Health Assistant."""
 
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ KNOWLEDGE_ARTICLES: tuple[KnowledgeArticle, ...] = (
         content=(
             "Pneumonia is an infection of the lungs that can cause fever, cough, "
             "shortness of breath, and chest discomfort. On a chest X-ray, pneumonia "
-            "may appear as areas of increased opacity (whiteness). CareVision AI "
+            "may appear as areas of increased opacity (whiteness). XRaySense AI "
             "provides a screening label only—it does not confirm a clinical diagnosis. "
             "A qualified clinician must interpret symptoms, exam findings, and imaging "
             "together. Treatment decisions (including antibiotics) are made only by "
@@ -40,7 +40,7 @@ KNOWLEDGE_ARTICLES: tuple[KnowledgeArticle, ...] = (
         content=(
             "A chest X-ray uses a small amount of radiation to create an image of the "
             "chest. Radiologists look for patterns such as clear lung fields, opacity, "
-            "fluid, or other abnormalities. CareVision AI analyzes a digital chest "
+            "fluid, or other abnormalities. XRaySense AI analyzes a digital chest "
             "X-ray with a trained screening model (EfficientNetB0) and may produce a "
             "Grad-CAM heatmap to show which regions influenced the model's decision. "
             "The heatmap is an explainability tool, not a map of proven disease."
@@ -119,9 +119,9 @@ KNOWLEDGE_ARTICLES: tuple[KnowledgeArticle, ...] = (
         id="faq",
         topic="Frequently Asked Questions",
         title="Frequently Asked Questions",
-        summary="Common questions about CareVision AI screening reports.",
+        summary="Common questions about XRaySense AI screening reports.",
         content=(
-            "Q: Does CareVision AI diagnose pneumonia?\n"
+            "Q: Does XRaySense AI diagnose pneumonia?\n"
             "A: No. It provides AI-assisted screening to support clinician review.\n\n"
             "Q: What does confidence mean?\n"
             "A: Confidence is how strongly the model favored the screening label on "

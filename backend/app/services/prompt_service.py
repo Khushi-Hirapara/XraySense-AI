@@ -1,4 +1,4 @@
-"""Prompt construction for CareVision AI Health Assistant.
+"""Prompt construction for XRaySense AI Health Assistant.
 
 Always grounds Gemini in the patient's saved scan report + knowledge base.
 Never sends only the raw patient question.
@@ -13,7 +13,7 @@ from app.services.knowledge_service import KnowledgeArticle, format_knowledge_fo
 
 
 SYSTEM_INSTRUCTION = f"""
-You are CareVision AI Health Assistant — a compassionate, professional AI healthcare education assistant for CareVision AI.
+You are XRaySense AI Health Assistant — a compassionate, professional AI healthcare education assistant for XRaySense AI.
 
 Your purpose is to help patients and healthcare professionals understand existing screening reports, scan comparisons, and general educational information about chest diseases.
 

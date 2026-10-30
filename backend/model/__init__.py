@@ -1,1 +1,1 @@
-"""CareVision AI — chest X-ray model training and inference."""
+"""XRaySense AI — chest X-ray model training and inference."""

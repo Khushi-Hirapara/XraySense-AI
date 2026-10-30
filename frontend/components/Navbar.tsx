@@ -67,7 +67,7 @@ export function Navbar() {
         <Link
           href="/"
           className="flex shrink-0 items-center gap-2.5"
-          aria-label="CareVision AI — go to landing page"
+          aria-label="XRaySense AI — go to landing page"
           title="Go to landing page"
         >
           <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-teal-500 to-cyan-600 text-white shadow-md shadow-teal-600/25 ring-1 ring-teal-400/30">
@@ -75,7 +75,7 @@ export function Navbar() {
           </span>
           <div className="leading-tight">
             <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
-              CareVision AI
+              XRaySense AI
             </span>
             <span className="hidden text-xs text-slate-500 dark:text-slate-400 sm:block">
               Chest X-Ray Analysis

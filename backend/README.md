@@ -1,4 +1,4 @@
-# CareVision AI — Backend (FastAPI)
+# XRaySense AI — Backend (FastAPI)
 
 REST API for chest X-ray pneumonia screening with JWT authentication.
 

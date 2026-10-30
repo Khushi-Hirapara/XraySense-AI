@@ -18,7 +18,7 @@ const nextSteps = [
   "Request qualified radiology review.",
 ];
 
-/** Decorative CareVision workspace preview using illustrative, non-patient data. */
+/** Decorative XRaySense workspace preview using illustrative, non-patient data. */
 export function DashboardPreview() {
   return (
     <div className="home-dashboard-preview relative mx-auto w-full max-w-xl lg:max-w-none">
@@ -36,7 +36,7 @@ export function DashboardPreview() {
             </span>
             <div>
               <p className="text-[11px] font-semibold tracking-tight text-white">
-                CareVision AI
+                XRaySense AI
               </p>
               <p className="text-[8px] text-slate-400">
                 Clinical review workspace
@@ -77,7 +77,7 @@ export function DashboardPreview() {
             <div className="relative aspect-[4/5] max-h-[300px] overflow-hidden rounded-xl bg-slate-950 shadow-inner ring-1 ring-slate-800/20 dark:ring-slate-700/80">
               <StudyImage
                 src="/carevision-demo-chest-xray.png"
-                alt="Synthetic frontal chest X-ray in the CareVision review workspace"
+                alt="Synthetic frontal chest X-ray in the XRaySense review workspace"
                 fill
                 priority
                 objectFit="contain"
@@ -227,7 +227,7 @@ export function DashboardPreview() {
       </div>
 
       <p className="mt-3 text-center text-[11px] text-slate-500 dark:text-slate-400">
-        Illustrative CareVision workflow — not a live patient study
+        Illustrative XRaySense workflow — not a live patient study
       </p>
     </div>
   );

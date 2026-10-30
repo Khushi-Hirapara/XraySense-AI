@@ -48,7 +48,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    print("\n=== CareVision AI Multi-class Confidence Summary ===")
+    print("\n=== XRaySense AI Multi-class Confidence Summary ===")
     print(f"Model path:   {args.model.resolve()}")
     print(f"Dataset path: {args.dataset_dir.resolve()}")
     print(f"Class mapping: {CLASS_INDICES}")

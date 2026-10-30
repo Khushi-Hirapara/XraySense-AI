@@ -1,16 +1,16 @@
-# CareVision AI — System Architecture
+# XRaySense AI — System Architecture
 
-This document describes the high-level architecture of **CareVision AI**, a deep learning–based chest X-ray analysis system for pneumonia detection with explainable AI, scan history, and PDF reporting.
+This document describes the high-level architecture of **XRaySense AI**, a deep learning–based chest X-ray analysis system for pneumonia detection with explainable AI, scan history, and PDF reporting.
 
 ---
 
 ## Overview
 
-CareVision AI is organized as a **modular monorepo** with clear separation between data, model training, inference, API services, and the user interface.
+XRaySense AI is organized as a **modular monorepo** with clear separation between data, model training, inference, API services, and the user interface.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                              CareVision AI                                  │
+│                              XRaySense AI                                  │
 ├──────────────┬──────────────┬──────────────┬──────────────┬─────────────────┤
 │   dataset/   │   backend/   │  frontend/   │     docs/                    │
 │  Data assets │ Train & infer│  REST API    │  Web UI      │  Documentation  │

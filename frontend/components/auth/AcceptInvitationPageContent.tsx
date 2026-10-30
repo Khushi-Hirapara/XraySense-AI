@@ -51,7 +51,7 @@ function InvitationShell({
             <Shield className="h-7 w-7" aria-hidden />
           </div>
           <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-teal-700">
-            CareVision AI
+            XRaySense AI
           </p>
           <h1 className="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
             Patient portal invitation

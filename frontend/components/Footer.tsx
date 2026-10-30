@@ -42,7 +42,7 @@ export function Footer() {
                 <Activity className="h-5 w-5" aria-hidden />
               </span>
               <span className="text-base font-semibold text-white">
-                CareVision AI
+                XRaySense AI
               </span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">
@@ -109,7 +109,7 @@ export function Footer() {
               Medical disclaimer
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-slate-400">
-              CareVision AI provides preliminary AI screening only-not a final
+              XRaySense AI provides preliminary AI screening only-not a final
               medical diagnosis. Always consult qualified healthcare
               professionals for clinical decisions.
             </p>
@@ -121,7 +121,7 @@ export function Footer() {
       <div className="border-t border-slate-800 bg-slate-950/50">
         <div className="flex w-full flex-col items-center justify-between gap-3 px-3 py-5 sm:flex-row sm:px-5 lg:px-6">
           <p className="text-center text-xs text-slate-500 sm:text-left">
-            © {year} CareVision AI. All rights reserved.
+            © {year} XRaySense AI. All rights reserved.
           </p>
           <p className="flex items-center gap-1.5 text-center text-xs text-slate-600">
             <Code2 className="h-3.5 w-3.5" aria-hidden />

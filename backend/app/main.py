@@ -1,5 +1,5 @@
 """
-CareVision AI — FastAPI application entry point.
+XRaySense AI — FastAPI application entry point.
 
 Run from backend/:
     uvicorn app.main:app --reload
@@ -38,7 +38,7 @@ def create_app() -> FastAPI:
 
     application = FastAPI(
         title=settings.app_name,
-        description="Chest X-ray pneumonia analysis API for CareVision AI.",
+        description="Chest X-ray pneumonia analysis API for XRaySense AI.",
         version="0.1.0",
         debug=settings.debug,
         lifespan=lifespan,

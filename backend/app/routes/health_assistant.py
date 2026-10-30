@@ -1,4 +1,4 @@
-"""CareVision AI Health Assistant API routes."""
+"""XRaySense AI Health Assistant API routes."""
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 from sqlalchemy.orm import Session

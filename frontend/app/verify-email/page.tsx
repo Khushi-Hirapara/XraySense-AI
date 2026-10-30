@@ -76,7 +76,7 @@ function VerifyEmailContent() {
   return (
     <AuthFormCard
       title="Verify email"
-      description="Confirm your account email to finish setting up CareVision."
+      description="Confirm your account email to finish setting up XRaySense."
       footer={
         <AuthFooterLink
           prompt="Already verified?"

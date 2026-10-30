@@ -469,7 +469,7 @@ export function DoctorDashboardView() {
 
       <section className="shrink-0 rounded-2xl border border-slate-200/80 bg-white/80 px-5 py-4 shadow-sm backdrop-blur-sm sm:px-6 dark:border-slate-700/80 dark:bg-slate-900/80">
         <p className="text-center text-xs leading-relaxed text-slate-500 sm:text-sm">
-          <span className="font-semibold text-slate-700">CareVision AI</span> stores
+          <span className="font-semibold text-slate-700">XRaySense AI</span> stores
           screening results on your workspace. AI outputs support clinical review—they are
           not a final diagnosis.
         </p>

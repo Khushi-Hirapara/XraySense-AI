@@ -1,0 +1,583 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-29T17:06:56.957090+00:00",
+  "dataset_root": "dataset/",
+  "class_names": [
+    "NORMAL",
+    "PNEUMONIA",
+    "COVID"
+  ],
+  "overall": {
+    "total": 9472,
+    "class_counts": {
+      "NORMAL": 1583,
+      "PNEUMONIA": 4273,
+      "COVID": 3616
+    },
+    "class_percentages": {
+      "NORMAL": 0.1671241554054054,
+      "PNEUMONIA": 0.45111908783783783,
+      "COVID": 0.38175675675675674
+    }
+  },
+  "splits": [
+    {
+      "split": "train",
+      "exists": true,
+      "class_counts": {
+        "NORMAL": 1341,
+        "PNEUMONIA": 3875,
+        "COVID": 2892
+      },
+      "class_percentages": {
+        "NORMAL": 0.16539220522940307,
+        "PNEUMONIA": 0.47792303897385296,
+        "COVID": 0.35668475579674397
+      },
+      "total": 8108,
+      "non_image_files": 2
+    },
+    {
+      "split": "val",
+      "exists": true,
+      "class_counts": {
+        "NORMAL": 8,
+        "PNEUMONIA": 8,
+        "COVID": 361
+      },
+      "class_percentages": {
+        "NORMAL": 0.021220159151193633,
+        "PNEUMONIA": 0.021220159151193633,
+        "COVID": 0.9575596816976127
+      },
+      "total": 377,
+      "non_image_files": 2
+    },
+    {
+      "split": "test",
+      "exists": true,
+      "class_counts": {
+        "NORMAL": 234,
+        "PNEUMONIA": 390,
+        "COVID": 363
+      },
+      "class_percentages": {
+        "NORMAL": 0.23708206686930092,
+        "PNEUMONIA": 0.3951367781155015,
+        "COVID": 0.3677811550151976
+      },
+      "total": 987,
+      "non_image_files": 0
+    }
+  ],
+  "training_usage": {
+    "description": "train_model.py splits dataset/train with validation_split=0.2, seed=42: the 'fit' subset trains the model and the 'validation' subset drives checkpointing and early stopping. dataset/test is held out for evaluation.",
+    "fit": {
+      "NORMAL": 1093,
+      "PNEUMONIA": 3088,
+      "COVID": 2306
+    },
+    "validation": {
+      "NORMAL": 248,
+      "PNEUMONIA": 787,
+      "COVID": 586
+    },
+    "unused_splits": [
+      "val"
+    ]
+  },
+  "image_properties": {
+    "measured_images": 9472,
+    "width": {
+      "NORMAL": {
+        "min": 912.0,
+        "p25": 1472.0,
+        "median": 1654.0,
+        "p75": 1848.0,
+        "max": 2916.0,
+        "mean": 1686.3796588755526
+      },
+      "PNEUMONIA": {
+        "min": 384.0,
+        "p25": 1000.0,
+        "median": 1160.0,
+        "p75": 1360.0,
+        "max": 2772.0,
+        "mean": 1195.0692721741166
+      },
+      "COVID": {
+        "min": 299.0,
+        "p25": 299.0,
+        "median": 299.0,
+        "p75": 299.0,
+        "max": 299.0,
+        "mean": 299.0
+      }
+    },
+    "height": {
+      "NORMAL": {
+        "min": 496.0,
+        "p25": 1140.0,
+        "median": 1323.0,
+        "p75": 1554.0,
+        "max": 2713.0,
+        "mean": 1378.6487681617182
+      },
+      "PNEUMONIA": {
+        "min": 127.0,
+        "p25": 640.0,
+        "median": 776.0,
+        "p75": 960.0,
+        "max": 2304.0,
+        "mean": 819.5539433653171
+      },
+      "COVID": {
+        "min": 299.0,
+        "p25": 299.0,
+        "median": 299.0,
+        "p75": 299.0,
+        "max": 299.0,
+        "mean": 299.0
+      }
+    },
+    "aspect_ratio": {
+      "NORMAL": {
+        "min": 0.8772204806687566,
+        "p25": 1.145318055865787,
+        "median": 1.2348420153714774,
+        "p75": 1.3357060221703372,
+        "max": 2.106969205834684,
+        "mean": 1.2486124279918387
+      },
+      "PNEUMONIA": {
+        "min": 0.8353909465020576,
+        "p25": 1.355140186915888,
+        "median": 1.489795918367347,
+        "p75": 1.6454545454545455,
+        "max": 3.378787878787879,
+        "mean": 1.5149947514865314
+      },
+      "COVID": {
+        "min": 1.0,
+        "p25": 1.0,
+        "median": 1.0,
+        "p75": 1.0,
+        "max": 1.0,
+        "mean": 1.0
+      }
+    },
+    "width_histogram": {
+      "bin_edges": [
+        299.0,
+        429.85,
+        560.7,
+        691.55,
+        822.4,
+        953.25,
+        1084.1,
+        1214.9499999999998,
+        1345.8,
+        1476.6499999999999,
+        1607.5,
+        1738.35,
+        1869.1999999999998,
+        2000.05,
+        2130.8999999999996,
+        2261.75,
+        2392.6,
+        2523.45,
+        2654.2999999999997,
+        2785.15,
+        2916.0
+      ],
+      "counts": {
+        "NORMAL": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          8,
+          47,
+          112,
+          239,
+          273,
+          293,
+          248,
+          143,
+          83,
+          50,
+          34,
+          33,
+          10,
+          6,
+          3
+        ],
+        "PNEUMONIA": [
+          7,
+          65,
+          29,
+          116,
+          568,
+          869,
+          770,
+          730,
+          462,
+          284,
+          194,
+          95,
+          45,
+          30,
+          4,
+          3,
+          0,
+          1,
+          1,
+          0
+        ],
+        "COVID": [
+          3616,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "height_histogram": {
+      "bin_edges": [
+        127.0,
+        256.3,
+        385.6,
+        514.9000000000001,
+        644.2,
+        773.5,
+        902.8000000000001,
+        1032.1000000000001,
+        1161.4,
+        1290.7,
+        1420.0,
+        1549.3000000000002,
+        1678.6000000000001,
+        1807.9,
+        1937.2000000000003,
+        2066.5,
+        2195.8,
+        2325.1000000000004,
+        2454.4,
+        2583.7000000000003,
+        2713.0
+      ],
+      "counts": {
+        "NORMAL": [
+          0,
+          0,
+          1,
+          1,
+          13,
+          45,
+          137,
+          247,
+          269,
+          270,
+          200,
+          129,
+          93,
+          63,
+          41,
+          30,
+          16,
+          13,
+          10,
+          5
+        ],
+        "PNEUMONIA": [
+          59,
+          46,
+          203,
+          784,
+          1039,
+          822,
+          524,
+          351,
+          202,
+          105,
+          63,
+          37,
+          19,
+          8,
+          4,
+          5,
+          2,
+          0,
+          0,
+          0
+        ],
+        "COVID": [
+          0,
+          3616,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "color_modes_by_class": {
+      "NORMAL": {
+        "L": 1583
+      },
+      "PNEUMONIA": {
+        "L": 3990,
+        "RGB": 283
+      },
+      "COVID": {
+        "L": 3616
+      }
+    },
+    "formats_by_class": {
+      "NORMAL": {
+        "JPEG": 1583
+      },
+      "PNEUMONIA": {
+        "JPEG": 4273
+      },
+      "COVID": {
+        "PNG": 3616
+      }
+    },
+    "dominant_size_by_class": {
+      "NORMAL": {
+        "width": 1472,
+        "height": 1171,
+        "count": 2,
+        "share": 0.0012634238787113076,
+        "distinct_sizes": 1563,
+        "share_in_other_classes": 0.0
+      },
+      "PNEUMONIA": {
+        "width": 1072,
+        "height": 648,
+        "count": 7,
+        "share": 0.0016381933068102036,
+        "distinct_sizes": 3272,
+        "share_in_other_classes": 0.0
+      },
+      "COVID": {
+        "width": 299,
+        "height": 299,
+        "count": 3616,
+        "share": 1.0,
+        "distinct_sizes": 1,
+        "share_in_other_classes": 0.0
+      }
+    }
+  },
+  "quality": {
+    "missing_folders": [],
+    "empty_folders": [],
+    "unreadable": {
+      "count": 0,
+      "by_folder": {},
+      "error_types": {}
+    },
+    "duplicates": {
+      "method": "Exact byte match (SHA-256 of file contents)",
+      "duplicate_groups": 64,
+      "redundant_copies": 78,
+      "groups_spanning_splits": {
+        "test-train": 6,
+        "test-val": 1,
+        "train-val": 4
+      },
+      "groups_with_conflicting_labels": 0
+    },
+    "dimension_issues": {
+      "min_dimension": 224,
+      "below_min_dimension": 41,
+      "extreme_aspect_ratio": 2122,
+      "non_rgb_or_grayscale": 0
+    }
+  },
+  "class_weights": {
+    "NORMAL": 1.9783470570295822,
+    "PNEUMONIA": 0.7002374784110535,
+    "COVID": 0.9376987568661462
+  },
+  "preprocessing": {
+    "model_input_size": 224,
+    "inference_input_size": 224,
+    "backbone": "efficientnet",
+    "preprocess_function": "efficientnet.preprocess_input (expects raw 0-255 RGB arrays)",
+    "color_mode": "RGB (grayscale images are expanded to 3 channels) in both training and inference",
+    "aspect_ratio_handling": "Stretched to a square (no cropping or padding) in both training and inference",
+    "training_loader": "keras.utils.image_dataset_from_directory (train_model._build_datasets)",
+    "training_resize_interpolation": "bilinear",
+    "inference_loader": "keras.utils.load_img + img_to_array (preprocessing.preprocess_image)",
+    "inference_resize_interpolation": "nearest",
+    "augmentation": {
+      "applied_to": "training 'fit' subset only (train_model._augment_images)",
+      "steps": [
+        "tf.image.random_flip_left_right",
+        "tf.image.random_brightness(max_delta=20.0) on the 0-255 scale",
+        "tf.image.random_contrast(lower=0.9, upper=1.1)",
+        "clip to [0, 255], then backbone preprocessing"
+      ]
+    },
+    "class_weighting": "Balanced class weights (total / (classes * count)) when USE_CLASS_WEIGHTS is true (default true; current environment: unset). The setting used for the deployed weights is not recorded.",
+    "differences": [
+      "Resize interpolation: training uses 'bilinear' (image_dataset_from_directory default) while production inference uses 'nearest' (keras load_img default).",
+      "Production uploads pass a quality check (minimum 224px per side) and DICOM files are converted to 8-bit PNG first; the training pipeline applies neither."
+    ]
+  },
+  "samples": [
+    {
+      "id": "00194466f98b5593",
+      "label": "NORMAL",
+      "split": "train",
+      "width": 1624,
+      "height": 1341
+    },
+    {
+      "id": "00457a8bb2895cfe",
+      "label": "NORMAL",
+      "split": "train",
+      "width": 1658,
+      "height": 1294
+    },
+    {
+      "id": "0102bc2c003f20bc",
+      "label": "NORMAL",
+      "split": "train",
+      "width": 1604,
+      "height": 1171
+    },
+    {
+      "id": "0128b4575da026fa",
+      "label": "NORMAL",
+      "split": "train",
+      "width": 1744,
+      "height": 1532
+    },
+    {
+      "id": "0000bc512ff226ba",
+      "label": "PNEUMONIA",
+      "split": "train",
+      "width": 936,
+      "height": 728
+    },
+    {
+      "id": "000dc8179b3ee10b",
+      "label": "PNEUMONIA",
+      "split": "train",
+      "width": 1240,
+      "height": 1008
+    },
+    {
+      "id": "0012bca09bfaf916",
+      "label": "PNEUMONIA",
+      "split": "train",
+      "width": 1400,
+      "height": 768
+    },
+    {
+      "id": "002f029f6ef5b7d3",
+      "label": "PNEUMONIA",
+      "split": "train",
+      "width": 679,
+      "height": 304
+    },
+    {
+      "id": "0011fff59ee2a984",
+      "label": "COVID",
+      "split": "train",
+      "width": 299,
+      "height": 299
+    },
+    {
+      "id": "0033cca8640d48b3",
+      "label": "COVID",
+      "split": "train",
+      "width": 299,
+      "height": 299
+    },
+    {
+      "id": "0038550e1bdc70f4",
+      "label": "COVID",
+      "split": "train",
+      "width": 299,
+      "height": 299
+    },
+    {
+      "id": "0039fc31cb973e00",
+      "label": "COVID",
+      "split": "train",
+      "width": 299,
+      "height": 299
+    }
+  ],
+  "findings": [
+    {
+      "severity": "warning",
+      "text": "Class imbalance in the training data: PNEUMONIA has 2.8x as many images as NORMAL (3088 vs 1093). Without correction the model is pushed toward predicting PNEUMONIA; train_model.py enables balanced class weights by default (USE_CLASS_WEIGHTS) to counter this, which raises the loss weight of rarer classes."
+    },
+    {
+      "severity": "warning",
+      "text": "All COVID images are PNG while every other class is JPEG. File format separates COVID perfectly, which suggests a different source dataset; the model could learn source-specific cues (compression, original size, contrast) instead of disease patterns."
+    },
+    {
+      "severity": "warning",
+      "text": "100% of COVID images are exactly 299x299 px, a size found in 0.0% of other images. Original image size alone nearly identifies this class (resizing to the model input hides size, but source artefacts may remain)."
+    },
+    {
+      "severity": "info",
+      "text": "41 images are smaller than 224 px on a side and are upscaled for the model; the production upload quality check would reject them."
+    },
+    {
+      "severity": "info",
+      "text": "2122 images have an aspect ratio beyond 1.5:1; resizing to a square stretches them (no cropping or padding)."
+    },
+    {
+      "severity": "warning",
+      "text": "64 groups of byte-identical images (78 redundant copies). Groups spanning splits: test-train: 6, test-val: 1, train-val: 4. Duplicates across train and test inflate test metrics."
+    },
+    {
+      "severity": "info",
+      "text": "dataset/val exists on disk but is not used by train_model.py, which takes its validation set from dataset/train instead."
+    }
+  ],
+  "label_mapping": {
+    "NORMAL": 0,
+    "PNEUMONIA": 1,
+    "COVID": 2
+  }
+}

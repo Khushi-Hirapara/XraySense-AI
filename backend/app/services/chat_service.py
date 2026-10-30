@@ -1,4 +1,4 @@
-"""CareVision AI Health Assistant orchestration.
+"""XRaySense AI Health Assistant orchestration.
 
 Loads the patient's saved report, builds a grounded prompt, calls Gemini,
 persists history, and returns structured UI cards. Does not touch the

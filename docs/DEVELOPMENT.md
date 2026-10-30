@@ -1,6 +1,6 @@
-# CareVision AI — Local Development Setup
+# XRaySense AI — Local Development Setup
 
-This guide walks through preparing your machine to run CareVision AI locally. Application code will be added under `backend/`, `frontend/`, and `model/` in later phases; this document defines the **intended** workflow and prerequisites.
+This guide walks through preparing your machine to run XRaySense AI locally. Application code will be added under `backend/`, `frontend/`, and `model/` in later phases; this document defines the **intended** workflow and prerequisites.
 
 ---
 
