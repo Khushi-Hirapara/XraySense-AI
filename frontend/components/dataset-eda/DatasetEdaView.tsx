@@ -352,11 +352,11 @@ export function DatasetEdaView() {
                       </td>
                       {classNames.map((c) => (
                         <td key={c} className="py-2 pr-3 text-right text-slate-700 dark:text-slate-300">
-                          {s.class_counts[c] ?? 0}{" "}
+                          {(s.class_counts[c] ?? 0).toLocaleString()}{" "}
                           <span className="text-xs text-slate-500">({formatPercent(s.class_percentages[c], 0)})</span>
                         </td>
                       ))}
-                      <td className="py-2 pr-3 text-right font-semibold text-slate-800 dark:text-slate-100">{s.total}</td>
+                      <td className="py-2 pr-3 text-right font-semibold text-slate-800 dark:text-slate-100">{s.total.toLocaleString()}</td>
                       <td className="py-2 text-right text-slate-700 dark:text-slate-300">{s.non_image_files}</td>
                     </tr>
                   ))}

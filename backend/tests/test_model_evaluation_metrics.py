@@ -316,6 +316,35 @@ def test_three_class_confusion_matrix_orientation_and_per_class_metrics():
     assert [c["label"] for c in mc["roc_curves_ovr"]] == list(CLASS_NAMES)
 
 
+def test_interpretation_names_where_misses_go_without_repeating_them():
+    probs, labels = _three_class_fixture()
+    limitations = _assemble(probs, labels, probs, labels)["interpretation"]["limitations"]
+    normal = [t for t in limitations if t.startswith("NORMAL recall")]
+    assert normal == ["NORMAL recall is only 66.7%: of 3 NORMAL images, 1 was misclassified (1 as PNEUMONIA)."]
+    # The same NORMAL -> PNEUMONIA error is not restated as a separate "most common error".
+    assert not any(t.startswith("Most common error") and "NORMAL images" in t for t in limitations)
+
+
+def test_three_class_pr_curves_and_threshold_sweeps_cover_every_class():
+    probs, labels = _three_class_fixture()
+    mc = _assemble(probs, labels, probs, labels)["multiclass"]
+    assert [c["label"] for c in mc["pr_curves_ovr"]] == list(CLASS_NAMES)
+    prevalence = {c["label"]: c["prevalence"] for c in mc["pr_curves_ovr"]}
+    assert prevalence == pytest.approx({"NORMAL": 3 / 9, "PNEUMONIA": 4 / 9, "COVID": 2 / 9})
+    sweeps = {c["label"]: c for c in mc["threshold_sweep_ovr"]["classes"]}
+    assert list(sweeps) == list(CLASS_NAMES)
+    assert [sweeps[c]["support"] for c in CLASS_NAMES] == [3, 4, 2]
+    for name, sweep in sweeps.items():
+        support = sweep["support"]
+        for row in sweep["rows"]:
+            # Every threshold row accounts for all 9 images, one-vs-rest.
+            assert row["tp"] + row["fn"] == support
+            assert row["fp"] + row["tn"] == 9 - support
+    # COVID vs rest at P(COVID) >= 0.5: both COVID images caught, one PNEUMONIA image flagged.
+    covid_half = next(r for r in sweeps["COVID"]["rows"] if r["threshold"] == pytest.approx(0.5))
+    assert (covid_half["tp"], covid_half["fn"], covid_half["fp"]) == (2, 0, 1)
+
+
 def test_label_mapping_must_match_class_order():
     probs, labels = _three_class_fixture()
     with pytest.raises(ValueError):

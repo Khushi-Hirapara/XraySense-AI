@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { niceCountTicks } from "@/lib/chart-ticks";
 import { CLASS_STYLES, FALLBACK_CLASS_STYLE, formatPercent, type Histogram } from "@/lib/dataset-eda";
 
 const AXIS_TEXT = "fill-slate-500 text-[10px] dark:fill-slate-400";
@@ -88,11 +89,11 @@ export function SplitComparisonChart({
 }) {
   if (groups.length === 0) return <EmptyChart message="No splits to compare." />;
 
-  const width = 600;
-  const height = 260;
-  const padL = 48;
+  const width = 860;
+  const height = 300;
+  const padL = 52;
   const padR = 12;
-  const padT = 20;
+  const padT = 24;
   const padB = 48;
   const plotW = width - padL - padR;
   const plotH = height - padT - padB;
@@ -103,20 +104,20 @@ export function SplitComparisonChart({
   };
   const value = (g: SplitGroup, label: string) =>
     mode === "percent" ? (share(g, label) ?? 0) : (g.counts[label] ?? 0);
-  const max =
-    mode === "percent" ? 1 : Math.max(1, ...groups.flatMap((g) => classNames.map((c) => value(g, c))));
+  const countAxis = niceCountTicks(Math.max(...groups.flatMap((g) => classNames.map((c) => g.counts[c] ?? 0))));
+  const max = mode === "percent" ? 1 : countAxis.max;
+  const ticks = mode === "percent" ? [0, 0.25, 0.5, 0.75, 1] : countAxis.ticks;
   const groupW = plotW / groups.length;
-  const barW = Math.min(34, (groupW - 20) / classNames.length);
+  const barW = Math.min(52, (groupW - 32) / classNames.length);
   const sy = (v: number) => padT + (1 - v / max) * plotH;
-  const ticks = [0, 0.25, 0.5, 0.75, 1].map((t) => t * max);
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} className="h-auto w-full" role="img" aria-label="Class counts per split">
+    <svg viewBox={`0 0 ${width} ${height}`} className="mx-auto h-auto w-full max-w-4xl" role="img" aria-label="Class counts per split">
       {ticks.map((t) => (
         <g key={t}>
           <line x1={padL} x2={width - padR} y1={sy(t)} y2={sy(t)} className={GRID_LINE} />
           <text x={padL - 6} y={sy(t) + 3} textAnchor="end" className={AXIS_TEXT}>
-            {mode === "percent" ? `${Math.round(t * 100)}%` : Math.round(t).toLocaleString()}
+            {mode === "percent" ? `${Math.round(t * 100)}%` : t.toLocaleString()}
           </text>
         </g>
       ))}
@@ -127,7 +128,7 @@ export function SplitComparisonChart({
             {classNames.map((label, ci) => {
               const v = value(g, label);
               const x = x0 + ci * barW;
-              const text = mode === "percent" ? formatPercent(v, 0) : String(g.counts[label] ?? 0);
+              const text = mode === "percent" ? formatPercent(v, 0) : (g.counts[label] ?? 0).toLocaleString();
               return (
                 <g key={label}>
                   <rect
@@ -138,15 +139,15 @@ export function SplitComparisonChart({
                     rx={3}
                     className={styleFor(label).fill}
                   >
-                    <title>{`${g.label} · ${label}: ${g.counts[label] ?? 0} (${formatPercent(share(g, label))})`}</title>
+                    <title>{`${g.label} · ${label}: ${(g.counts[label] ?? 0).toLocaleString()} (${formatPercent(share(g, label))})`}</title>
                   </rect>
-                  <text x={x + barW / 2} y={sy(v) - 4} textAnchor="middle" className="fill-slate-700 text-[9px] font-semibold dark:fill-slate-200">
+                  <text x={x + barW / 2} y={sy(v) - 4} textAnchor="middle" className="fill-slate-700 text-[11px] font-semibold dark:fill-slate-200">
                     {text}
                   </text>
                 </g>
               );
             })}
-            <text x={padL + gi * groupW + groupW / 2} y={height - 26} textAnchor="middle" className="fill-slate-700 text-[11px] font-semibold dark:fill-slate-200">
+            <text x={padL + gi * groupW + groupW / 2} y={height - 26} textAnchor="middle" className="fill-slate-700 text-[12px] font-semibold dark:fill-slate-200">
               {g.label}
             </text>
             {g.sublabel ? (
@@ -190,7 +191,7 @@ export function ClassShareStack({ groups, classNames }: { groups: SplitGroup[]; 
                       key={label}
                       className={cn("flex items-center justify-center text-[10px] font-semibold text-white", styleFor(label).bar)}
                       style={{ width: `${share * 100}%` }}
-                      title={`${label}: ${g.counts[label]} (${formatPercent(share)})`}
+                      title={`${label}: ${(g.counts[label] ?? 0).toLocaleString()} (${formatPercent(share)})`}
                     >
                       {share >= 0.08 ? formatPercent(share, 0) : ""}
                     </div>
@@ -232,10 +233,9 @@ export function StackedHistogram({
   const totals = Array.from({ length: bins }, (_, i) =>
     classNames.reduce((s, c) => s + (histogram.counts[c]?.[i] ?? 0), 0),
   );
-  const max = Math.max(1, ...totals);
+  const { max, ticks } = niceCountTicks(Math.max(...totals));
   const binW = plotW / bins;
   const sy = (v: number) => padT + (1 - v / max) * plotH;
-  const ticks = [0, 0.5, 1].map((t) => Math.round(t * max));
   const edgeLabelEvery = Math.max(1, Math.ceil(bins / 5));
 
   return (

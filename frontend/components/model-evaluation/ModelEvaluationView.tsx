@@ -186,6 +186,7 @@ export function ModelEvaluationView() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<{ message: string; notGenerated: boolean } | null>(null);
   const [selectedId, setSelectedId] = useState<string>("argmax");
+  const [sweepClass, setSweepClass] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -239,8 +240,21 @@ export function ModelEvaluationView() {
     [report],
   );
 
+  const prSeries = useMemo<CurveSeries[]>(
+    () =>
+      (report?.multiclass.pr_curves_ovr ?? []).map((c) => ({
+        label: `${c.label} vs rest (AP ${c.average_precision.toFixed(3)})`,
+        points: c.points.map((p) => ({ x: p.recall, y: p.precision })),
+        strokeClassName: CLASS_CURVE_STYLES[c.label]?.stroke ?? "stroke-slate-500",
+        swatchClassName: CLASS_CURVE_STYLES[c.label]?.swatch ?? "bg-slate-500",
+      })),
+    [report],
+  );
+
   const mc = report?.multiclass;
   const mcReport = mc?.classification_report;
+  const sweepClasses = mc?.threshold_sweep_ovr.classes ?? [];
+  const activeSweep = sweepClasses.find((c) => c.label === sweepClass) ?? sweepClasses[0];
 
   return (
     <div className="page-content flex flex-1 flex-col gap-8">
@@ -423,6 +437,66 @@ export function ModelEvaluationView() {
               </Card>
             </div>
 
+            <div className="grid gap-6 lg:grid-cols-2">
+              <Card>
+                <SectionTitle
+                  title="One-vs-rest precision-recall curves"
+                  description="For each class, P(class) ranks that class against the other two. AP = average precision."
+                />
+                {prSeries.length > 0 ? (
+                  <UnitCurveChart
+                    series={prSeries}
+                    xLabel="Recall"
+                    yLabel="Precision"
+                    ariaLabel="One-vs-rest precision-recall curves for each class"
+                  />
+                ) : (
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
+                    Precision-recall curves are unavailable: the test set has no images for any class.
+                  </p>
+                )}
+              </Card>
+              <Card>
+                <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+                  <div className="max-w-md">
+                    <h3 className="text-base font-semibold text-slate-900 dark:text-white">Threshold trade-off per class</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                      {mc.threshold_sweep_ovr.note}
+                    </p>
+                  </div>
+                  {sweepClasses.length > 0 ? (
+                    <div role="group" aria-label="Class for threshold trade-off" className="inline-flex rounded-xl bg-slate-100 p-1 dark:bg-slate-800">
+                      {sweepClasses.map((c) => (
+                        <button
+                          key={c.label}
+                          type="button"
+                          aria-pressed={c.label === activeSweep?.label}
+                          onClick={() => setSweepClass(c.label)}
+                          className={cn(
+                            "rounded-lg px-2.5 py-1.5 text-xs font-medium transition",
+                            c.label === activeSweep?.label
+                              ? "bg-white text-teal-800 shadow-sm dark:bg-slate-900 dark:text-teal-300"
+                              : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white",
+                          )}
+                        >
+                          {c.label}
+                        </button>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+                {activeSweep ? (
+                  <ThresholdTradeoffChart
+                    rows={activeSweep.rows}
+                    positiveLabel={activeSweep.label}
+                    negativeDescription={`non-${activeSweep.label}`}
+                  />
+                ) : (
+                  <p className="text-sm text-slate-500 dark:text-slate-400">No threshold data available.</p>
+                )}
+              </Card>
+            </div>
+
             <Card>
               <SectionTitle title="Interpretation — three-class model" description="Generated from the computed metrics above." />
               <div className="grid gap-6 md:grid-cols-2">
@@ -442,11 +516,27 @@ export function ModelEvaluationView() {
           {/* Secondary: binary analysis                                          */}
           {/* ------------------------------------------------------------------ */}
           {selected ? (
-            <section aria-labelledby="binary-heading" className="flex flex-col gap-6">
-              <PartHeading id="binary-heading" eyebrow="Secondary analysis" title="Binary Analysis (Normal vs Pneumonia)">
-                A pneumonia-vs-normal view for comparison with binary screening studies. It is <strong>not</strong> how
-                the deployed model makes decisions.
-              </PartHeading>
+            <details className="group rounded-2xl border border-slate-200 bg-white/60 dark:border-slate-700 dark:bg-slate-900/40">
+              <summary className="flex cursor-pointer list-none items-start justify-between gap-4 rounded-2xl px-5 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/60 [&::-webkit-details-marker]:hidden">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    Secondary analysis · COVID excluded
+                  </p>
+                  <h2 className="mt-1 text-lg font-semibold tracking-tight text-slate-900 dark:text-white">
+                    Binary Analysis (Normal vs Pneumonia)
+                  </h2>
+                  <p className="mt-1 max-w-3xl text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                    Only the {report.binary_task.included_samples} NORMAL and PNEUMONIA test images, for comparison with
+                    binary pneumonia-screening studies. COVID is shown in the three-class results above. This is{" "}
+                    <strong>not</strong> how the deployed model makes decisions.
+                  </p>
+                </div>
+                <span className="mt-1 shrink-0 rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                  <span className="group-open:hidden">Show</span>
+                  <span className="hidden group-open:inline">Hide</span>
+                </span>
+              </summary>
+              <div className="flex flex-col gap-6 border-t border-slate-200 px-5 pb-6 pt-5 dark:border-slate-700">
 
               <div className="flex gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
                 <Info className="mt-0.5 h-5 w-5 shrink-0 text-sky-600" aria-hidden />
@@ -638,10 +728,9 @@ export function ModelEvaluationView() {
                 <SectionTitle title="Notes — binary analysis" />
                 <BulletList items={report.interpretation.binary_notes} empty="No notes." />
               </Card>
-            </section>
+              </div>
+            </details>
           ) : null}
-
-          <AcademicDisclaimer />
         </>
       )}
     </div>

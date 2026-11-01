@@ -40,7 +40,7 @@ except ImportError:
         valid_probability_mask,
     )
 
-REPORT_SCHEMA_VERSION = 2
+REPORT_SCHEMA_VERSION = 3
 
 # Must match train_model.py `_build_datasets` so the same images are held out.
 TRAINING_VALIDATION_SPLIT = 0.2
@@ -137,7 +137,10 @@ def build_interpretation(report: dict[str, object]) -> dict[str, list[str]]:
             f"Three-class accuracy is {_fmt(mc_report['accuracy'])} on {mc_report['total_support']} "
             "held-out test images using the production argmax rule."
         )
-    for row in mc_report["classes"]:
+    labels = mc["labels"]
+    cm = mc["confusion_matrix"]
+    described_misses: set[str] = set()
+    for i, row in enumerate(mc_report["classes"]):
         if row["recall"] is None:
             limitations.append(f"{row['label']} recall is undefined: the test set has no {row['label']} images.")
         elif row["recall"] >= 0.95:
@@ -146,13 +149,16 @@ def build_interpretation(report: dict[str, object]) -> dict[str, list[str]]:
                 f"(precision {_fmt(row['precision'])}, n={row['support']})."
             )
         elif row["recall"] < 0.8:
+            misses = [(labels[j], n) for j, n in enumerate(cm[i]) if j != i and n]
+            where = " and ".join(f"{n} as {label}" for label, n in sorted(misses, key=lambda m: -m[1]))
+            missed = sum(n for _, n in misses)
             limitations.append(
-                f"{row['label']} recall is only {_fmt(row['recall'])}: "
-                f"{row['support'] - round(row['recall'] * row['support'])} of {row['support']} "
-                f"{row['label']} images were assigned another class."
+                f"{row['label']} recall is only {_fmt(row['recall'])}: of {row['support']} {row['label']} "
+                f"images, {missed} {'was' if missed == 1 else 'were'} misclassified ({where})."
             )
-    worst = _largest_confusion(mc["confusion_matrix"], mc["labels"])
-    if worst:
+            described_misses.add(row["label"])
+    worst = _largest_confusion(cm, labels)
+    if worst and worst[0] not in described_misses:
         actual, predicted, n, support = worst
         limitations.append(
             f"Most common error: {n} of {support} {actual} images predicted as {predicted}."
@@ -286,6 +292,40 @@ def assemble_report(
         if test_labels_ok.size
         else None
     )
+    # One-vs-rest precision-recall curves and threshold sweeps for every class.
+    pr_curves_ovr: list[dict[str, object]] = []
+    sweep_ovr: list[dict[str, object]] = []
+    grid = default_threshold_grid(SWEEP_STEP)
+    for name in class_names:
+        idx = class_indices[name]
+        is_class = (test_labels_ok == idx).astype(np.int64)
+        if not is_class.size:
+            continue
+        class_scores = test_probs_ok[:, idx].astype(np.float64)
+        pr_ovr = precision_recall_curve(is_class, class_scores)
+        if pr_ovr is not None:
+            pr_curves_ovr.append(
+                {
+                    "label": name,
+                    "average_precision": pr_ovr["average_precision"],
+                    "prevalence": pr_ovr["prevalence"],
+                    "points": downsample_curve(
+                        [
+                            {"recall": float(r), "precision": float(p)}
+                            for r, p in zip(pr_ovr["recall"], pr_ovr["precision"])
+                        ],
+                        max_points=120,
+                    ),
+                }
+            )
+        sweep_ovr.append(
+            {
+                "label": name,
+                "support": int(is_class.sum()),
+                "rows": threshold_sweep(is_class, class_scores, grid),
+            }
+        )
+
     present = [name for name in class_names if np.any(test_labels_ok == class_indices[name])]
     missing = [name for name in class_names if name not in present]
     if ovr is None or ovr["macro_auc"] is None:
@@ -414,6 +454,15 @@ def assemble_report(
                 for row in (ovr["per_class"] if ovr else [])
                 if row["auc"] is not None
             ],
+            "pr_curves_ovr": pr_curves_ovr,
+            "threshold_sweep_ovr": {
+                "note": (
+                    "Descriptive only: for each class, how many images would be wrongly flagged (false "
+                    "positives) or missed (false negatives) if P(class) >= threshold were used one-vs-rest. "
+                    "Production uses argmax, not a threshold."
+                ),
+                "classes": sweep_ovr,
+            },
         },
     }
     report["interpretation"] = build_interpretation(report)

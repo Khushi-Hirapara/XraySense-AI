@@ -129,6 +129,16 @@ export interface EvaluationReport {
       note: string | null;
     };
     roc_curves_ovr: { label: string; auc: number; points: { fpr: number; tpr: number }[] }[];
+    pr_curves_ovr: {
+      label: string;
+      average_precision: number;
+      prevalence: number;
+      points: { recall: number; precision: number }[];
+    }[];
+    threshold_sweep_ovr: {
+      note: string;
+      classes: { label: string; support: number; rows: ThresholdRow[] }[];
+    };
   };
   interpretation: { strengths: string[]; limitations: string[]; binary_notes: string[] };
 }

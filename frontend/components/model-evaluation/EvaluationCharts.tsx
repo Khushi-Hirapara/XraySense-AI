@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { niceCountTicks } from "@/lib/chart-ticks";
 import { formatMetric } from "@/lib/model-evaluation";
 
 const AXIS_TEXT = "fill-slate-500 text-[10px] dark:fill-slate-400";
@@ -190,7 +191,8 @@ export function UnitCurveChart({
     pts.map((p, i) => `${i === 0 ? "M" : "L"} ${sx(p.x).toFixed(1)} ${sy(p.y).toFixed(1)}`).join(" ");
 
   return (
-    <div className={cn("w-full", className)}>
+    // Capped width keeps the square plot (and its axis text) in proportion with neighbouring charts.
+    <div className={cn("mx-auto w-full max-w-[420px]", className)}>
       <svg viewBox={`0 0 ${width} ${height}`} className="h-auto w-full" role="img" aria-label={ariaLabel}>
         {TICKS.map((t) => (
           <g key={t}>
@@ -404,13 +406,24 @@ export function PerClassMetricsChart({ rows, className }: PerClassMetricsChartPr
 
 interface ThresholdTradeoffChartProps {
   rows: { threshold: number; fp: number; fn: number }[];
-  /** Validation-selected threshold to highlight, if any. */
-  selectedThreshold: number | null;
+  /** Threshold to highlight (e.g. validation-selected), if any. */
+  selectedThreshold?: number | null;
+  /** Class whose probability is thresholded (default PNEUMONIA). */
+  positiveLabel?: string;
+  /** What a false positive is wrongly drawn from (default "normal"). */
+  negativeDescription?: string;
   className?: string;
 }
 
-/** False positives vs false negatives as the P(PNEUMONIA) threshold moves. */
-export function ThresholdTradeoffChart({ rows, selectedThreshold, className }: ThresholdTradeoffChartProps) {
+/** False positives vs false negatives as a probability threshold for one class moves. */
+export function ThresholdTradeoffChart({
+  rows,
+  selectedThreshold = null,
+  positiveLabel = "PNEUMONIA",
+  negativeDescription = "normal",
+  className,
+}: ThresholdTradeoffChartProps) {
+  const positiveName = positiveLabel.toLowerCase();
   if (rows.length < 2) {
     return <EmptyChart message="Not enough data for a threshold sweep." className={className} />;
   }
@@ -423,12 +436,12 @@ export function ThresholdTradeoffChart({ rows, selectedThreshold, className }: T
   const padB = 40;
   const plotW = width - padL - padR;
   const plotH = height - padT - padB;
-  const maxCount = Math.max(1, ...rows.map((r) => Math.max(r.fp, r.fn)));
+  const dataMax = Math.max(1, ...rows.map((r) => Math.max(r.fp, r.fn)));
+  const { max: maxCount, ticks: yTicks } = niceCountTicks(dataMax);
   const sx = (t: number) => padL + t * plotW;
   const sy = (v: number) => padT + (1 - v / maxCount) * plotH;
   const line = (key: "fp" | "fn") =>
     rows.map((r, i) => `${i === 0 ? "M" : "L"} ${sx(r.threshold).toFixed(1)} ${sy(r[key]).toFixed(1)}`).join(" ");
-  const yTicks = [0, 0.25, 0.5, 0.75, 1].map((t) => Math.round(maxCount * t));
 
   return (
     <div className={cn("w-full", className)}>
@@ -482,7 +495,7 @@ export function ThresholdTradeoffChart({ rows, selectedThreshold, className }: T
         ))}
 
         <text x={padL + plotW / 2} y={height - 6} textAnchor="middle" className={AXIS_TEXT}>
-          Threshold on P(PNEUMONIA)
+          {`Threshold on P(${positiveLabel})`}
         </text>
         <text
           x={12}
@@ -497,11 +510,11 @@ export function ThresholdTradeoffChart({ rows, selectedThreshold, className }: T
       <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600 dark:text-slate-400">
         <li className="flex items-center gap-1.5">
           <span className="h-0.5 w-4 rounded bg-rose-500" aria-hidden />
-          False positives (normal flagged as pneumonia)
+          {`False positives (${negativeDescription} flagged as ${positiveName})`}
         </li>
         <li className="flex items-center gap-1.5">
           <span className="h-0.5 w-4 rounded bg-sky-500" aria-hidden />
-          False negatives (pneumonia missed)
+          {`False negatives (${positiveName} missed)`}
         </li>
       </ul>
     </div>

@@ -162,6 +162,24 @@ class OvrRocCurve(BaseModel):
     points: list[RocPoint]
 
 
+class OvrPrCurve(BaseModel):
+    label: str
+    average_precision: float
+    prevalence: float
+    points: list[PrPoint]
+
+
+class OvrSweepClass(BaseModel):
+    label: str
+    support: int = Field(..., ge=0)
+    rows: list[ThresholdRow]
+
+
+class OvrThresholdSweep(BaseModel):
+    note: str
+    classes: list[OvrSweepClass]
+
+
 class MulticlassEvaluation(BaseModel):
     dataset: str
     decision_rule: str
@@ -171,6 +189,8 @@ class MulticlassEvaluation(BaseModel):
     classification_report: ClassificationReport
     roc_auc_ovr: MulticlassRocAuc
     roc_curves_ovr: list[OvrRocCurve]
+    pr_curves_ovr: list[OvrPrCurve]
+    threshold_sweep_ovr: OvrThresholdSweep
 
 
 class Interpretation(BaseModel):
@@ -182,9 +202,9 @@ class Interpretation(BaseModel):
 
 
 class EvaluationReport(BaseModel):
-    """Shape of model/evaluation/evaluation_report.json (schema version 2)."""
+    """Shape of model/evaluation/evaluation_report.json (schema version 3)."""
 
-    schema_version: int = Field(..., ge=2, description="Reports older than v2 must be regenerated.")
+    schema_version: int = Field(..., ge=3, description="Reports older than v3 must be regenerated.")
     generated_at: datetime
     model: ModelInfo
     preprocessing: PreprocessingInfo
